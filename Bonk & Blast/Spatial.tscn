@@ -1,0 +1,123 @@
+[gd_scene load_steps=11 format=2]
+
+[ext_resource path="res://Mining_Pack_Free.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Player.gd" type="Script" id=2]
+[ext_resource path="res://kickelhahn_tower/scene.gltf" type="PackedScene" id=3]
+[ext_resource path="res://low_poly_dwarf/scene.gltf" type="PackedScene" id=4]
+[ext_resource path="res://low_poly_dwarf/Mago.gd" type="Script" id=5]
+[ext_resource path="res://Poppins/Poppins-Regular.ttf" type="DynamicFontData" id=6]
+[ext_resource path="res://DialogueManager.gd" type="Script" id=7]
+
+[sub_resource type="CapsuleShape" id=1]
+radius = 0.35
+height = 1.8
+
+[sub_resource type="BoxShape" id=2]
+extents = Vector3( 0.928456, 1, 0.905604 )
+
+[sub_resource type="DynamicFont" id=3]
+size = 8
+font_data = ExtResource( 6 )
+
+[node name="Spatial" type="Spatial"]
+
+[node name="player" type="Spatial" parent="."]
+
+[node name="Player" type="KinematicBody" parent="player"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 11.3024, -44.3386, 92.6437 )
+script = ExtResource( 2 )
+
+[node name="CollisionShape" type="CollisionShape" parent="player/Player"]
+transform = Transform( 0.996809, -0.0365862, -0.0709404, 0.0684697, -0.0648578, 0.995543, -0.0410241, -0.997224, -0.0621458, -0.179316, 0.389568, -0.144989 )
+shape = SubResource( 1 )
+
+[node name="Head" type="Spatial" parent="player/Player"]
+
+[node name="Camera" type="Camera" parent="player/Player/Head"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.6, 0.160095 )
+current = true
+
+[node name="RayCast" type="RayCast" parent="player/Player"]
+
+[node name="Mining_Pack_Free2" parent="." instance=ExtResource( 1 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -26.8413, -20.7373, 18.8815 )
+
+[node name="Torre" parent="." instance=ExtResource( 3 )]
+transform = Transform( 1.99712, 0, -0.107286, 0, 2, 0, 0.107286, 0, 1.99712, -54.3101, -51.2093, -15.2995 )
+
+[node name="Mago" parent="." instance=ExtResource( 4 )]
+transform = Transform( 0.0133896, 0, 0.00676153, 0, 0.015, 0, -0.00676153, 0, 0.0133896, -64.3195, -49.4341, -5.6589 )
+script = ExtResource( 7 )
+
+[node name="Area" type="Area" parent="Mago"]
+transform = Transform( 48.7453, -2.60608, -21.4836, 2.91541, 53.2533, 0.154984, 21.4438, -1.31603, 48.8147, 1013.48, 452, 556.542 )
+script = ExtResource( 5 )
+
+[node name="CollisionShape" type="CollisionShape" parent="Mago/Area"]
+transform = Transform( 14.9141, 0.676368, -1.45315, -0.668901, 14.9847, 0.109484, 1.45661, -0.0440558, 14.929, -14.6132, 2.83351, -1.11393 )
+shape = SubResource( 2 )
+
+[node name="DialogueCamera" type="Camera" parent="Mago"]
+transform = Transform( 66.6667, 0, -3.8147e-06, 0, 66.6667, 0, 3.8147e-06, 0, 66.6667, 13.7717, 267.425, 233.003 )
+visible = false
+
+[node name="Tween" type="Tween" parent="Mago"]
+
+[node name="UI" type="CanvasLayer" parent="Mago"]
+
+[node name="DialoguePanel" type="Panel" parent="Mago/UI"]
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 8.0
+margin_top = -304.0
+margin_right = -716.0
+margin_bottom = -204.0
+rect_min_size = Vector2( 0, -250 )
+rect_scale = Vector2( 3, 2.976 )
+
+[node name="Label" type="Label" parent="Mago/UI/DialoguePanel"]
+margin_left = 2.0
+margin_top = 1.0
+margin_right = 451.0
+margin_bottom = 94.0
+rect_scale = Vector2( 0.771275, 1.20611 )
+custom_fonts/font = SubResource( 3 )
+text = "Olá aventureiro, tudo bem ? Vejo que você está perdido, por acaso você almeja explorar esssa
+grande torre? Ela se chama grande Torre Nascimento, muitas pessoas que tentaram se 
+aventurar nunca conseguiram voltar, você almeja eu abro para você e lhe forneço equipamentos"
+autowrap = true
+
+[node name="ButtonSim" type="Button" parent="Mago/UI/DialoguePanel"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -36.3333
+margin_top = 4.43549
+margin_right = 5.66672
+margin_bottom = 24.4355
+rect_scale = Vector2( 0.701227, 0.961497 )
+text = "Sim"
+
+[node name="ButtonNao" type="Button" parent="Mago/UI/DialoguePanel"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -35.6667
+margin_top = 26.6129
+margin_right = 1.33333
+margin_bottom = 46.6129
+rect_scale = Vector2( 0.763004, 0.860589 )
+text = "Não"
+
+[node name="ColorRect" type="ColorRect" parent="Mago/UI"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+rect_scale = Vector2( 5.53176, 2.53947 )
+color = Color( 0, 0, 0, 1 )
+
+[connection signal="body_entered" from="Mago/Area" to="Mago" method="_on_Area_body_entered"]
+[connection signal="body_shape_entered" from="Mago/Area" to="Mago" method="_on_Area_body_shape_entered"]
